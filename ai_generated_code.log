@@ -1,0 +1,311 @@
+
+Generated Code:
+def is_prime(num):
+    """Checks if a number is prime."""
+    if num <= 1:
+        return False
+    if num <= 3:
+        return True
+    if num % 2 == 0 or num % 3 == 0:
+        return False
+    i = 5
+    while i * i <= num:
+        if num % i == 0 or num % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+def generate_primes(count):
+    """Generates the first 'count' prime numbers."""
+    primes = []
+    num = 2
+    while len(primes) < count:
+        if is_prime(num):
+            primes.append(num)
+        num += 1
+    return primes
+
+# Generate and print the first 10 prime numbers
+first_ten_primes = generate_primes(10)
+print(first_ten_primes)
+--------------------------------------------------
+
+Generated Code:
+def is_prime(num):
+    """Checks if a number is prime."""
+    if num <= 1:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+
+def generate_primes(count):
+    """Generates the first 'count' prime numbers."""
+    primes = []
+    num = 2
+    while len(primes) < count:
+        if is_prime(num):
+            primes.append(num)
+        num += 1
+    return primes
+
+
+# Generate and print the first 10 prime numbers
+first_ten_primes = generate_primes(10)
+print(first_ten_primes)
+--------------------------------------------------
+
+Generated Code:
+def fibonacci_iterative(n):
+    """
+    Generates Fibonacci sequence up to n terms using iteration.
+    """
+    a, b = 0, 1
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [a]
+    else:
+        list_fib = [a, b]
+        while len(list_fib) < n:
+            c = a + b
+            list_fib.append(c)
+            a, b = b, c
+        return list_fib
+
+print(fibonacci_iterative(10)) # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+--------------------------------------------------
+
+Generated Code:
+def bellman_ford(graph, source):
+    """
+    Bellman-Ford algorithm for finding shortest paths from a source vertex to all other vertices in a graph.
+
+    Args:
+        graph: A dictionary representing the graph where keys are vertices and values are dictionaries of neighbors with associated edge weights.
+        source: The source vertex.
+
+    Returns:
+        A dictionary of shortest distances from the source to all reachable vertices.
+        Returns None if a negative cycle is detected.
+    """
+
+    distances = {vertex: float('inf') for vertex in graph}
+    distances[source] = 0
+
+    num_vertices = len(graph)
+
+    # Relax edges |V| - 1 times
+    for _ in range(num_vertices - 1):
+        for u in graph:
+            for v, weight in graph[u].items():
+                if distances[u] != float('inf') and distances[u] + weight < distances[v]:
+                    distances[v] = distances[u] + weight
+
+
+    # Check for negative cycles.  If a shorter path is found after |V|-1 iterations,
+    # there must be a negative cycle.
+    for u in graph:
+        for v, weight in graph[u].items():
+            if distances[u] != float('inf') and distances[u] + weight < distances[v]:
+                return None  # Negative cycle detected
+
+    return distances
+
+
+# Example usage:
+
+graph = {
+    'A': {'B': -1, 'C': 4},
+    'B': {'C': 3, 'D': 2, 'E': 2},
+    'C': {},
+    'D': {'B': 1, 'C': 5},
+    'E': {'D': -3}
+}
+
+source_vertex = 'A'
+
+shortest_distances = bellman_ford(graph, source_vertex)
+
+
+if shortest_distances:
+    print(f"Shortest distances from vertex {source_vertex}:")
+    for vertex, distance in shortest_distances.items():
+        print(f"To {vertex}: {distance}")
+else:
+    print("Negative cycle detected!")
+
+
+
+graph_with_negative_cycle = {
+    'A': {'B': -1, 'C': 4},
+    'B': {'C': 3, 'D': 2, 'E': 2},
+    'C': {},
+    'D': {'B': -10},  # Introduce a negative cycle
+    'E': {'D': -3}
+}
+shortest_distances = bellman_ford(graph_with_negative_cycle, source_vertex)
+
+if shortest_distances:
+    print(f"Shortest distances from vertex {source_vertex}:")
+    for vertex, distance in shortest_distances.items():
+        print(f"To {vertex}: {distance}")
+else:
+    print("Negative cycle detected!")
+--------------------------------------------------
+
+Generated Code:
+def reverse_string(s):
+    """Reverses a string.
+
+    Args:
+      s: The string to reverse.
+
+    Returns:
+      The reversed string.
+    """
+    return s[::-1]
+
+# Example usage:
+string = "hello"
+reversed_string = reverse_string(string)
+print(f"Original string: {string}")
+print(f"Reversed string: {reversed_string}")
+
+
+# Alternative implementations (less Pythonic, but demonstrate other approaches):
+
+def reverse_string_loop(s):
+    reversed_str = ""
+    for i in range(len(s) - 1, -1, -1):
+        reversed_str += s[i]
+    return reversed_str
+
+def reverse_string_recursion(s):
+    if len(s) == 0:
+        return s
+    else:
+        return reverse_string_recursion(s[1:]) + s[0]
+
+
+# Demonstrating the alternative implementations:
+string = "world"
+
+reversed_loop = reverse_string_loop(string)
+print(f"Reversed using loop: {reversed_loop}")
+
+reversed_recursion = reverse_string_recursion(string)
+print(f"Reversed using recursion: {reversed_recursion}")
+--------------------------------------------------
+
+Generated Code:
+def fibonacci_iterative(n):
+    """
+    Generates the Fibonacci sequence up to n terms iteratively.
+
+    Args:
+        n: The number of terms to generate.
+
+    Returns:
+        A list containing the first n Fibonacci numbers.
+    """
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    else:
+        list_fib = [0, 1]
+        while len(list_fib) < n:
+            next_fib = list_fib[-1] + list_fib[-2]
+            list_fib.append(next_fib)
+        return list_fib
+
+
+# Example usage:
+n_terms = 10
+fib_sequence = fibonacci_iterative(n_terms)
+print(fib_sequence)  # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+--------------------------------------------------
+
+Generated Code:
+def bellman_ford(graph, source):
+    """
+    Bellman-Ford algorithm for finding shortest paths from a single source.
+
+    Args:
+        graph: A dictionary representing the graph where keys are nodes and 
+               values are dictionaries mapping neighbors to edge weights.
+        source: The source node.
+
+    Returns:
+        A dictionary of shortest distances from the source to all reachable nodes.
+        Returns None if a negative cycle is detected.
+    """
+
+    # Initialize distances.  Infinity for all nodes except the source.
+    distances = {node: float('inf') for node in graph}
+    distances[source] = 0
+
+    # Relax edges |V| - 1 times.
+    num_nodes = len(graph)
+    for _ in range(num_nodes - 1):
+        for node in graph:
+            for neighbor, weight in graph[node].items():
+                if distances[node] != float('inf') and distances[node] + weight < distances[neighbor]:
+                    distances[neighbor] = distances[node] + weight
+
+    # Check for negative cycles.  If any distance can still be reduced,
+    # then there is a negative cycle.
+    for node in graph:
+        for neighbor, weight in graph[node].items():
+            if distances[node] != float('inf') and distances[node] + weight < distances[neighbor]:
+                return None  # Negative cycle detected
+
+    return distances
+
+
+
+# Example usage:
+graph = {
+    'A': {'B': -1, 'C': 4},
+    'B': {'C': 3, 'D': 2, 'E': 2},
+    'C': {},
+    'D': {'B': 1, 'C': 5},
+    'E': {'D': -3}
+}
+
+source_node = 'A'
+shortest_distances = bellman_ford(graph, source_node)
+
+if shortest_distances:
+    print("Shortest distances from node", source_node + ":")
+    for node, distance in shortest_distances.items():
+        print(f"To {node}: {distance}")
+else:
+    print("Negative cycle detected!")
+
+
+# Example with a negative cycle:
+graph_with_negative_cycle = {
+    'A': {'B': -1, 'C': 4},
+    'B': {'C': 3, 'D': 2, 'E': 2},
+    'C': {},
+    'D': {'B': -10, 'C': 5},  # Negative cycle: A -> B -> D -> B ...
+    'E': {'D': -3}
+}
+
+shortest_distances = bellman_ford(graph_with_negative_cycle, source_node)
+
+if shortest_distances:
+    print("Shortest distances from node", source_node + ":")
+    for node, distance in shortest_distances.items():
+        print(f"To {node}: {distance}")
+else:
+    print("Negative cycle detected!")
+--------------------------------------------------
+
+Generated Code:
+print("Hello, World!")
+--------------------------------------------------
